@@ -1,0 +1,2 @@
+rootProject.name = "ForHabr_SwipeRefresh"
+include ':app'
