@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this, R.layout.activity_main
         )
-        binding.webView.settings.javaScriptEnabled = true
-        binding.webView.loadUrl("https://www.journaldev.com")
+        setSupportActionBar(binding.toolbar)
     }
 }
