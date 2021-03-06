@@ -112,6 +112,6 @@ class NestedWebView : WebView, NestedScrollingChild {
 
     init {
         mChildHelper = NestedScrollingChildHelper(this)
-        isNestedScrollingEnabled = true
+        isNestedScrollingEnabled = false
     }
 }
