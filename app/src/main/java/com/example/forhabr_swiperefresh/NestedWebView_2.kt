@@ -70,6 +70,11 @@ class NestedWebView_2 : WebView, NestedScrollingChild2 {
             MotionEvent.ACTION_MOVE -> {
                 var deltaY = lastY - event.y.toInt()
 
+                // Handling unusual pages (E.g. Nested scroll on a page).
+                if (deltaY > 0 && scrollY == 0) {
+                    overScroll = false
+                }
+
                 val scrollOffset = IntArray(2)
                 val scrollConsumed = IntArray(2)
                 if (dispatchNestedPreScroll(0, deltaY, scrollConsumed, scrollOffset)) {
