@@ -1,8 +1,11 @@
 package com.example.forhabr_swiperefresh
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.webkit.CookieManager
+import android.webkit.WebStorage
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.forhabr_swiperefresh.databinding.ActivityMainBinding
@@ -20,13 +23,13 @@ class MainActivity : AppCompatActivity(), WebViewListener {
         binding.webView.settings.setSupportZoom(true)
         binding.webView.settings.builtInZoomControls = true
         binding.webView.settings.displayZoomControls = false
-        binding.webView.loadUrl("https://www.google.com/search?newwindow=1&sxsrf=ALeKk02Xt8LeDNhoH8es8g-jq_Rd0Y6MtA%3A1614334825312&ei=acs4YNKnEqKHwPAP7I2LiAo&q=disney&oq=disney&gs_lcp=Cgdnd3Mtd2l6EAxQAFgAYKwXaABwAngAgAG9AYgBvQGSAQMwLjGYAQCqAQdnd3Mtd2l6wAEB&sclient=gws-wiz&ved=0ahUKEwiSgL7uqYfvAhWiAxAIHezGAqEQ4dUDCA0")
+        binding.webView.webViewClient = MyWebViewClient()
         binding.swipeContainer.setOnRefreshListener {
             binding.webView.reload()
             binding.swipeContainer.isRefreshing = false
         }
-        binding.webView.setOnClickListener { binding.webView.requestFocus() }
         binding.webView.setWebPageListener(this)
+        binding.webView.loadUrl("https://secure07c.chase.com/web/auth/dashboard#/dashboard/overviewAccounts/overview/index")
     }
 
     override fun refreshSwipeEnable() {
@@ -38,11 +41,13 @@ class MainActivity : AppCompatActivity(), WebViewListener {
                 it.isNestedScrollingEnabled =
                     it.canScrollVertically(-1) ||
                     !it.overScroll ||
-                    it.pointerCount > 1
+                    it.pointerCount > 1 ||
+                    binding.appBarLayout.bottom != binding.appBarLayout.height
                 binding.swipeContainer.isEnabled =
                     !it.canScrollVertically(-1) &&
                     it.overScroll &&
-                    it.pointerCount == 1
+                    it.pointerCount == 1 &&
+                    binding.appBarLayout.bottom == binding.appBarLayout.height
                 Log.d("VLADISLAV", "AFTER isNestedScrollingEnabled - ${it.isNestedScrollingEnabled} swipeContainer - ${binding.swipeContainer.isEnabled}")
             }
         }
