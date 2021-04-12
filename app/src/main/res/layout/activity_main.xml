@@ -14,7 +14,7 @@
             <com.example.forhabr_swiperefresh.NestedWebView_2
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.appbar.AppBarLayout
