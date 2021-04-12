@@ -66,11 +66,11 @@ class NestedWebView : WebView, NestedScrollingChild {
         }
         return returnValue
     }
-
-    // Nested Scroll implements
-    override fun setNestedScrollingEnabled(enabled: Boolean) {
-        mChildHelper.isNestedScrollingEnabled = enabled
-    }
+//
+//    // Nested Scroll implements
+//    override fun setNestedScrollingEnabled(enabled: Boolean) {
+//        mChildHelper.isNestedScrollingEnabled = enabled
+//    }
 
     override fun isNestedScrollingEnabled(): Boolean {
         return mChildHelper.isNestedScrollingEnabled
