@@ -2,6 +2,7 @@ package com.example.forhabr_swiperefresh
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.View
 import android.webkit.WebView
 import androidx.core.view.NestedScrollingChild2
 import androidx.core.view.NestedScrollingChildHelper
@@ -38,6 +39,7 @@ class NestedWebView_2 : WebView, NestedScrollingChild2 {
     }
 
     private var actionUp = false
+    var pointerCount = 0
     var overScroll = true
     override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
@@ -48,8 +50,14 @@ class NestedWebView_2 : WebView, NestedScrollingChild2 {
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         val event = MotionEvent.obtain(ev)
+        pointerCount = event.pointerCount
 
-        when (event.action) {
+        when (event.actionMasked) {
+
+//             A non-primary pointer has gone down.
+            MotionEvent.ACTION_POINTER_DOWN -> {
+                webPageListener.refreshSwipeEnable()
+            }
 
             MotionEvent.ACTION_DOWN -> {
                 this.actionUp = false

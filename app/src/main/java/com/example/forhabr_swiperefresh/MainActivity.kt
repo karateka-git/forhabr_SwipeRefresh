@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity(), WebViewListener {
         )
         setSupportActionBar(binding.toolbar)
         binding.webView.settings.javaScriptEnabled = true
+        binding.webView.settings.setSupportZoom(true)
+        binding.webView.settings.builtInZoomControls = true
+        binding.webView.settings.displayZoomControls = false
         binding.webView.loadUrl("https://www.google.com/search?newwindow=1&sxsrf=ALeKk02Xt8LeDNhoH8es8g-jq_Rd0Y6MtA%3A1614334825312&ei=acs4YNKnEqKHwPAP7I2LiAo&q=disney&oq=disney&gs_lcp=Cgdnd3Mtd2l6EAxQAFgAYKwXaABwAngAgAG9AYgBvQGSAQMwLjGYAQCqAQdnd3Mtd2l6wAEB&sclient=gws-wiz&ved=0ahUKEwiSgL7uqYfvAhWiAxAIHezGAqEQ4dUDCA0")
         binding.swipeContainer.setOnRefreshListener {
             binding.webView.reload()
@@ -34,10 +37,12 @@ class MainActivity : AppCompatActivity(), WebViewListener {
                 Log.d("VLADISLAV", "BEFORE isNestedScrollingEnabled - ${it.isNestedScrollingEnabled} swipeContainer - ${binding.swipeContainer.isEnabled}")
                 it.isNestedScrollingEnabled =
                     it.canScrollVertically(-1) ||
-                    !it.overScroll
+                    !it.overScroll ||
+                    it.pointerCount > 1
                 binding.swipeContainer.isEnabled =
                     !it.canScrollVertically(-1) &&
-                    it.overScroll
+                    it.overScroll &&
+                    it.pointerCount == 1
                 Log.d("VLADISLAV", "AFTER isNestedScrollingEnabled - ${it.isNestedScrollingEnabled} swipeContainer - ${binding.swipeContainer.isEnabled}")
             }
         }
